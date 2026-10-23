@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import ts from 'typescript';
+const code=ts.transpileModule(fs.readFileSync('lib/visitor-session.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const {visitorSession,withVisitorSession}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+const key='a'.repeat(64),url='https://example.test/api/polyv/account';
+const first=visitorSession(new Request(url),key);assert.match(first.cookie,/HttpOnly; SameSite=Lax/);assert.match(first.cookie,/Secure/);
+const cookie=first.cookie.split(';')[0];const again=visitorSession(new Request(url,{headers:{cookie}}),key);assert.equal(first.owner,again.owner);assert.equal(again.cookie,null);
+const other=visitorSession(new Request(url),key);assert.notEqual(first.owner,other.owner);
+const forged=visitorSession(new Request(url,{headers:{cookie:cookie.replace(/.$/,'z')}}),key);assert.notEqual(forged.owner,first.owner);
+assert.notEqual(visitorSession(new Request(url,{headers:{cookie}}),key,Date.now()+31*86400000).owner,first.owner);
+let seen;const next=async r=>{seen=r.headers;return Response.json({ok:true});};
+const response=await withVisitorSession(new Request(url,{headers:{cookie,'oai-authenticated-user-id':'victim','oai-authenticated-user-email':'victim@example.test'}}),{SESSION_SECRET:key},next);
+assert.equal(seen.get('oai-authenticated-user-id'),first.owner);assert.equal(seen.has('oai-authenticated-user-email'),false);assert.equal(response.status,200);assert.equal(response.headers.get('cache-control'),'private, no-store');
+const blocked=await withVisitorSession(new Request(url,{method:'POST',headers:{origin:'https://evil.test'}}),{SESSION_SECRET:key},next);assert.equal(blocked.status,403);
+assert.equal((await withVisitorSession(new Request(url),{},next)).status,503);
+assert.match(fs.readFileSync('app/api/ai/route.ts','utf8'),/if\(!connection\?\.verified_channel\)return error/);
+console.log('PASS: cookie reuse, visitor isolation, tamper/expiry rejection, forged header removal, CSRF blocking, secret fail-closed, verified-channel AI gate');
+
+const hosted=await withVisitorSession(new Request(url,{headers:{'oai-authenticated-user-id':'existing-site-owner'}}),{SESSION_SECRET:key},next,{platformIdentity:true});
+assert.equal(seen.get('oai-authenticated-user-id'),'existing-site-owner');assert.equal(hosted.headers.get('set-cookie'),null);
+console.log('PASS: trusted Sites identity preserves existing work ownership; independent deployment still rejects spoofed identity.');

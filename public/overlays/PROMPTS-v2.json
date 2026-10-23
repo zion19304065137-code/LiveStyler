@@ -1,0 +1,34 @@
+[
+  {
+    "key": "launch-landscape",
+    "prompt": "Corporate product launch speaker name lower third: crisp WHITE rectangular main name panel, one cobalt blue square tab on far left and a narrow navy second-line strip below; a tiny restrained cyan hairline on the left edge. Swiss broadcast typography grid, extremely flat, minimal, confident. Blank text areas, no words. NOT a full screen frame."
+  },
+  {
+    "key": "launch-portrait",
+    "prompt": "Mobile-first corporate launch speaker card: a cobalt vertical capsule on left, white compact rounded rectangular name panel to its right, short cobalt-blue secondary title tab below occupying only 60 percent width. Asymmetrical compact editorial card, soft 8px corners, no words."
+  },
+  {
+    "key": "gala-landscape",
+    "prompt": "Chinese corporate annual celebration lower third: refined matte deep oxblood red long rectangular label, a delicate warm ivory narrow second line underneath, one very fine champagne-gold ribbon gently curves around the far LEFT corner. Right edge straight, ample empty text space. Modern annual event broadcast, restrained festive elegance, flat print design, no words."
+  },
+  {
+    "key": "gala-portrait",
+    "prompt": "Mobile Chinese annual celebration title card: two offset matte red rectangular paper strips, upper short deep vermilion strip and lower longer warm-ivory strip, a tiny champagne circular seal tab on left, subtle red paper-cut arc only at left bottom. Contemporary festival editorial identity, mostly flat, compact asymmetrical composition, no words."
+  },
+  {
+    "key": "training-landscape",
+    "prompt": "Enterprise live training lecturer identity card: pure off-white rectangular name area, compact dark teal square tab on LEFT with a simple tiny abstract open-book pictogram, below a thinner mint-tinted role strip. Tiny dark teal vertical rule separates tab and blank text field. Flat restrained educational branding, near-square corners, no words."
+  },
+  {
+    "key": "training-portrait",
+    "prompt": "Vertical-phone online training lecturer card: small dark teal header tab occupies upper left 35 percent, larger warm white gently rounded rectangular body below, a thin mint progress underline ends before right edge. Asymmetric clean learning-product visual identity, almost flat with subtle paper depth, large blank left-aligned text space. No words."
+  },
+  {
+    "key": "fashion-landscape",
+    "prompt": "Premium contemporary womenswear livestream product lower third: warm ivory minimalist flat paper label with coffee-brown small square SKU tab at left, one very fine coffee horizontal divider splitting name and price areas, subtle beige right-edge offset layer. Quiet editorial fashion branding, sharp corners, understated, no words or pearl or flowers."
+  },
+  {
+    "key": "fashion-portrait",
+    "prompt": "A single compact luxury womenswear live-shopping SKU card for a vertical boutique broadcast. Portrait near-square blank warm-ivory card, flat coffee-brown narrow header tab across top, thin beige divider at 60 percent height separating product name from price zone, tiny blank light-tan pill in bottom left. Editorial clothing-store price card, crisp rectangular shape, lots of whitespace, small asymmetrical coffee tab at upper left. No words, no clothing, no flowers, no pearls."
+  }
+]

@@ -1,0 +1,13 @@
+import fs from 'node:fs';import ts from 'typescript';import assert from 'node:assert/strict';
+let source=ts.transpileModule(fs.readFileSync('components/ScrubNumber.tsx','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022}}).outputText;
+source=source.replace(/import .* from ["']react\/jsx-runtime["'];/, 'const _jsx=(_tag,props)=>props;').replace(/import .* from ["']react["'];/,'const useRef=(value)=>({current:value});');
+const {default:Scrub}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+globalThis.HTMLInputElement=class {get value(){return this.v}set value(v){this.v=v}};
+const input=new HTMLInputElement();input.setPointerCapture=()=>{};input.releasePointerCapture=()=>{};input.blur=()=>{};
+const event=(x,extra={})=>({button:0,pointerId:1,clientX:x,currentTarget:input,preventDefault(){},...extra});
+let values=[];const props=Scrub({value:50,min:0,max:100,onChange:e=>values.push(Number(e.target.value))});
+props.onPointerDown(event(100));props.onPointerMove(event(102));props.onPointerUp(event(102));assert.deepEqual(values,[],'Simple clicks must not change numbers');
+props.onPointerDown(event(100));props.onPointerMove(event(112));assert.equal(values.at(-1),62);props.onPointerMove(event(80));assert.equal(values.at(-1),30);props.onPointerMove(event(200));assert.equal(values.at(-1),100);props.onPointerUp(event(200));
+props.onPointerDown(event(100));props.onPointerMove(event(110,{altKey:true}));assert.equal(values.at(-1),51);props.onPointerMove(event(110,{shiftKey:true}));assert.equal(values.at(-1),100);props.onPointerCancel(event(110));
+props.onChange({target:{value:'37'}});assert.equal(values.at(-1),37,'Ordinary typed input remains available');
+console.log('PASS: actual numeric handlers preserve click/typing, scrub both ways, respect bounds, modifiers and cancellation.');

@@ -1,0 +1,14 @@
+{
+  "hosted_version": 80,
+  "anonymous_live_http_checks": {
+    "ai_status": 200,
+    "channel_form": 200,
+    "work_list": 200,
+    "asset_list": 200,
+    "unbound_ai_rejected": 403,
+    "invalid_channel_fields_rejected": 400,
+    "signed_cookie_set": true
+  },
+  "browser_preview": "environment connection refused",
+  "real_polyv_account_end_to_end": "not tested - no real channel credentials"
+}

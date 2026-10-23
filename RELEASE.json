@@ -1,0 +1,9 @@
+{
+  "edition": "online-browser",
+  "hosted_version": 80,
+  "hosted_source_commit": "3377eb0999a7670fbf98fb3a8c6e81b7a878a7ed",
+  "website": "https://livestyler-studio.zion-su.chatgpt.site",
+  "independent_entry_ignores_client_identity_headers": true,
+  "personal_ai_config_in_local_dev_vars": true,
+  "company_api_included": false
+}

@@ -1,0 +1,8 @@
+{
+  "generator": "image_gen.imagegen",
+  "reference": "/scenes/commerce-portrait-v2.webp",
+  "preserved": "Original eight template covers and all transparent packaging assets remain unchanged.",
+  "prompt": "Photorealistic raw beauty livestream frame. Young female host in a cream blouse presenting an unbranded ivory skincare bottle in a warm ivory/champagne studio. Real skin and soft lighting. No text, logos, price cards, decorative ribbons or broadcast UI. Generate each orientation independently. Leave quiet space behind the fixed top title, left service badges, right product card and bottom ribbon.",
+  "portrait": {"file":"commerce-live-portrait-v3.webp","composition":"9:16, top 26% quiet ceiling/wall; full face around x56%, y39%; hands/product around y49–62%; bottom 30% counter."},
+  "landscape": {"file":"commerce-live-landscape-v4.webp","composition":"16:9 wider medium seated shot; top of hair begins around y27%, entire face at y31–55%, hands and held bottle at y55–73%; top quarter, side edges and counter remain clear for the unchanged overlay."}
+}

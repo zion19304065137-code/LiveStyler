@@ -1,0 +1,21 @@
+import fs from 'node:fs';import ts from 'typescript';import assert from 'node:assert/strict';import {DatabaseSync} from 'node:sqlite';
+const mod=async f=>import('data:text/javascript;base64,'+Buffer.from(ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText).toString('base64'));
+const {reserveTask,ownerOf,sameOrigin,configuredLimit}=await mod('lib/cloud-services.ts');const {placeOverlayObject}=await mod('lib/overlay-placement.ts');
+const sql=new DatabaseSync(':memory:');sql.exec(fs.readFileSync('drizzle/0001_friendly_alice.sql','utf8'));
+const db={prepare:query=>({bind:(...args)=>({run:async()=>({meta:{changes:Number(sql.prepare(query).run(...args).changes)}})})})};
+await reserveTask(db,'alice','task-alice-1',2,3);await assert.rejects(reserveTask(db,'alice','task-alice-2',2,3));sql.exec("UPDATE ai_tasks SET state='completed'");await reserveTask(db,'alice','task-alice-2',2,3);sql.exec("UPDATE ai_tasks SET state='completed'");await assert.rejects(reserveTask(db,'alice','task-alice-3',2,3));await reserveTask(db,'bob','task-bob-1',2,3);await assert.rejects(reserveTask(db,'charlie','task-charlie-1',2,3));sql.exec("UPDATE ai_tasks SET state='failed' WHERE owner='bob'");await reserveTask(db,'charlie','task-charlie-1',2,3);
+assert.throws(()=>ownerOf(new Request('https://test.site')));assert.throws(()=>sameOrigin(new Request('https://test.site',{headers:{origin:'https://evil.site'}})));assert.equal(configuredLimit('bad',10),10);
+sql.exec("UPDATE ai_tasks SET state='completed'");
+for(let i=0;i<15;i++){await reserveTask(db,'alice','unlimited-'+i,0,0);sql.exec("UPDATE ai_tasks SET state='completed'");}
+await reserveTask(db,'alice','unlimited-active',0,0);await assert.rejects(reserveTask(db,'alice','unlimited-duplicate',0,0),/已有设计任务正在进行/);
+console.log('PASS: daily caps can be disabled independently of duplicate/concurrent-task protection.');
+for(const target of [{width:1080,height:1920},{width:1920,height:1080}]){const source={width:1024,height:1536};for(const rect of [{x:50,y:25,width:900,height:100},{x:20,y:1400,width:950,height:100}]){const out=placeOverlayObject(rect,source,target);assert(Math.abs(out.width/out.height-rect.width/rect.height)<1e-9);assert(out.x>=0&&out.y>=0&&out.x+out.width<=target.width&&out.y+out.height<=target.height);if(rect.y<100)assert(out.y/target.height<.1);else assert(out.y/target.height>.8);}}
+console.log('PASS: durable atomic daily/user/concurrency limits, failure release, identity/CSRF guards; independent overlay placement preserves aspect and edge positions.');
+const transpile=f=>ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const url=src=>'data:text/javascript;base64,'+Buffer.from(src).toString('base64');const objects=new Map([['tasks/alice/task-alice-1.json',JSON.stringify({src:'data:image/png;base64,aGVsbG8='})]]);
+sql.exec("UPDATE ai_tasks SET state='completed',result_key='tasks/alice/task-alice-1.json' WHERE id='task-alice-1'");
+globalThis.cloudTestEnv={DB:{prepare:query=>({bind:(...args)=>({first:async()=>sql.prepare(query).get(...args)||null,all:async()=>({results:sql.prepare(query).all(...args)})})})},BUCKET:{get:async key=>objects.has(key)?{text:async()=>objects.get(key)}:null}};
+let source=transpile('app/api/tasks/route.ts').replace(/import \{ runtimeEnv \} from [^;]+;/,'const runtimeEnv=async()=>globalThis.cloudTestEnv;').replace(/from ["'][^"']*cloud-services["']/,'from "'+url(transpile('lib/cloud-services.ts'))+'"');const {GET}=await import(url(source));
+const req=(owner,id)=>new Request('https://test.site/api/tasks'+(id?'?id='+id:''),{headers:owner?{'oai-authenticated-user-id':owner}:{}});
+assert.notEqual((await GET(req(null,'task-alice-1'))).status,200);assert.equal((await GET(req('bob','task-alice-1'))).status,404);const recovered=await GET(req('alice','task-alice-1'));assert.equal((await recovered.json()).src,'data:image/png;base64,aGVsbG8=');const listed=await (await GET(req('bob'))).json();assert(listed.tasks.every(t=>t.id.startsWith('task-bob')));
+console.log('PASS: saved task results can be recovered; anonymous and cross-owner access cannot read them.');delete globalThis.cloudTestEnv;

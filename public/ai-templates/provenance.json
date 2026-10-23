@@ -1,0 +1,64 @@
+{
+  "generator": "image_gen.imagegen",
+  "background": "transparent",
+  "reference": "Original eight public/scenes/*-v2.webp covers retained unchanged",
+  "purpose": "AI-rendered broadcast overlays, including lettering and decoration. Import script only splits existing pixels along transparency.",
+  "prompts": [
+    {
+      "scene": "launch",
+      "ratio": "landscape",
+      "reference": "/scenes/launch-landscape-v2.webp",
+      "asset": "/ai-templates/launch-landscape.webp",
+      "prompt": "Technology launch transparent overlay matching reference; electric cyan/cobalt, brand, LIVE badge, speaker namecard, bottom event ribbon; no people or scene."
+    },
+    {
+      "scene": "launch",
+      "ratio": "portrait",
+      "reference": "/scenes/launch-portrait-v2.webp",
+      "asset": "/ai-templates/launch-portrait.webp",
+      "prompt": "9:16 vertical technology launch. Electric cyan and cobalt high-tech glass, precise luminous bevels. Top brand「智元科技」and small red「● LIVE」. Upper title「AI 重塑未来」with subtitle「2026 智能科技新品发布会」. Lower-left nameplate「李明｜产品负责人」. Bottom ribbon「探索下一代智能体验」and small AI holographic cube on bottom right. Center from 30% to 73% height transparent. Keep face and hands area empty."
+    },
+    {
+      "scene": "gala",
+      "ratio": "landscape",
+      "reference": "/scenes/gala-landscape-v2.webp",
+      "asset": "/ai-templates/gala-landscape.webp",
+      "prompt": "16:9 landscape enterprise annual gala. Royal midnight blue and luminous champagne gold, exquisite foil calligraphy, flowing silk light trails, very sparse fine stars. Top title「聚势同行 · 共赴新程」and subtitle「2027 企业年度盛典」. Top left brand「品牌名称」and top right small red「● LIVE」. Lower left small host nameplate「年度盛典主持人」. Bottom elegant blue gold ribbon「凝心聚力 · 共创辉煌」with subtle gold city silhouette at far edge. Central live-video area completely empty."
+    },
+    {
+      "scene": "gala",
+      "ratio": "portrait",
+      "reference": "/scenes/gala-portrait-v2.webp",
+      "asset": "/ai-templates/gala-portrait.webp",
+      "prompt": "9:16 vertical enterprise annual gala. Royal midnight blue and luminous champagne gold, exquisite foil calligraphy, flowing silk light trails, very sparse fine stars. Top title「聚势同行 · 共赴新程」and subtitle「2027 企业年度盛典」. Top left brand「品牌名称」and top right small red「● LIVE」. Lower left host nameplate「年度盛典主持人」. Bottom elegant blue gold ribbon「凝心聚力 · 共创辉煌」with subtle gold city silhouette. Middle 30%-72% height completely transparent for host."
+    },
+    {
+      "scene": "training",
+      "ratio": "landscape",
+      "reference": "/scenes/training-landscape-v2.webp",
+      "asset": "/ai-templates/training-landscape.webp",
+      "prompt": "16:9 landscape corporate educational training. Premium crisp cobalt and pale ice blue with white glass, clean editorial information hierarchy, dimensional small education icons. Top header「知行学院｜企业培训直播课堂」, red「● LIVE」. Left speaker video window MUST BE EMPTY/TRANSPARENT, right large 16:9 PPT content window MUST BE EMPTY/TRANSPARENT with a refined thin blue frame only. Speaker badge under left window「陈老师｜企业数字化培训讲师」. Bottom slim course strip「AI工具在企业中的实践应用」and smaller「实用干货 · 真实场景 · 助力成长」. No fake slide content. Keep both video and slide openings transparent."
+    },
+    {
+      "scene": "training",
+      "ratio": "portrait",
+      "reference": "/scenes/training-portrait-v2.webp",
+      "asset": "/ai-templates/training-portrait.webp",
+      "prompt": "9:16 vertical corporate educational training. Premium crisp cobalt and pale ice blue with white glass, clean editorial information hierarchy, dimensional small education icons. Top header「知行学院」and「企业数字化培训课堂」, red「● LIVE」. Upper half speaker-video window transparent. At lower portion create large EMPTY/TRANSPARENT 16:9 PPT opening with refined thin ice-blue frame only, centered around 67% height. Speaker badge「陈老师｜特邀讲师」between speaker and slide areas. Bottom slim strip「每天进步一点点」and「实用干货 · 真实场景」. No slide writing or slide background inside PPT window."
+    },
+    {
+      "scene": "commerce",
+      "ratio": "landscape",
+      "reference": "/scenes/commerce-landscape-v2.webp",
+      "asset": "/ai-templates/commerce-landscape.webp",
+      "prompt": "16:9 landscape luxury beauty shopping livestream. Match champagne silk, warm ivory, brushed gold and elegant premium brand typography. Top brand「LUMIÉRE」and「品牌好物节」, centered ribbon「品牌专场 · 限时福利」. Small top-right red「● LIVE」. Left stack three small separate icon service badges「直播专享」「全场包邮」「正品保障」. Right slim ivory product card with elegant skincare bottle illustration and text「水润修护精华礼盒」「¥299」「限时优惠」. Bottom fluid ivory gold ribbon「精选品质好物」. Central 65% empty transparent for presenter and real products."
+    },
+    {
+      "scene": "commerce",
+      "ratio": "portrait",
+      "reference": "/scenes/commerce-portrait-v2.webp",
+      "asset": "/ai-templates/commerce-portrait.webp",
+      "prompt": "9:16 vertical luxury beauty shopping livestream. Match champagne silk, warm ivory, brushed gold and elegant premium brand typography. Top brand「LUMIÉRE」and title「品牌好物节」, small ribbon「品牌专场 · 限时福利」. Small top-right red「● LIVE」. Left edge small separate service badges「直播专享」「全场包邮」「正品保障」. Bottom fifth an ivory product card with skincare bottle illustration and exact text「水润修护精华礼盒」「¥299」「限时优惠」. Very bottom refined flowing ribbon「精选品质好物」. Middle 30%-68% height transparent, keep central presenter space entirely empty."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "generator": "built-in imagegen",
+  "purpose": "重新生成发布会和年会演示实拍底图，实景延伸至四边并留出顶部空间，取消原来下移底图的默认布局；原模板封面与包装保持不变",
+  "files": [
+    "launch-live-v2.webp",
+    "gala-live-v2.webp",
+    "gala-live-landscape-v3.webp"
+  ],
+  "constraints": "16:9摄影画面，居中主体可用于竖屏裁切，不含文字/贴片/黑边",
+  "landscapeCorrection": "单独降低横屏年会主持人构图，避免标题覆盖脸部；不移动图层、不补黑边。"
+}
